@@ -12,7 +12,7 @@ public class Server {
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/test", new MyHandler());
-	server.createContext("/dad", new DadHandler());
+	server.createContext("/", new DadHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
     }
@@ -31,7 +31,8 @@ public class Server {
     static class DadHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange t) throws IOException {
-        String fileName = "data.txt";
+        System.out.println( "URI is'" + t.getRequestURI() + "'");                   
+        String fileName = "/home/elc/javatests" + t.getRequestURI();
         String line = null;
         String contents = "";
 
